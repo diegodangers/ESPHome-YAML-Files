@@ -146,11 +146,23 @@ cover:
     id: kitchen_control
     assumed_state: true
     open_action:
-      - switch.turn_off: shade_s2
-      - switch.turn_on: shade_s1
+      if:
+        condition:
+          - binary_sensor.is_on: limit_up
+        then:
+          - switch.turn_off: shade_s1
+        else:
+          - switch.turn_off: shade_s2
+          - switch.turn_on: shade_s1
     close_action:
-      - switch.turn_off: shade_s1
-      - switch.turn_on: shade_s2
+      if:
+        condition:
+          - binary_sensor.is_on: limit_down
+        then:
+          - switch.turn_off: shade_s2
+        else:
+          - switch.turn_off: shade_s1
+          - switch.turn_on: shade_s2
     stop_action:
       - switch.turn_off: shade_s1
       - switch.turn_off: shade_s2
