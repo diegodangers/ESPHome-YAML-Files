@@ -1,0 +1,134 @@
+esphome:
+  name: curtainmotor_test
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: "WinternetIsComing.2"
+  password: "609redondo"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Curtainmotor Test"
+    password: "1kN9zJ5bkByW"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+output:
+  - platform: gpio
+    id: 'shade_open'
+    pin: D1
+  - platform: gpio
+    id: 'shade_close'
+    pin: D2
+
+switch:
+  - platform: output
+    name: "shade_open"
+    internal: true
+    output: 'shade_open'
+    id: shade_s1
+  - platform: output
+    name: "shade_close"
+    internal: true
+    output: 'shade_close'
+    id: shade_s2
+
+binary_sensor:
+#open
+  - platform: gpio
+    pin: 
+        number: D6
+        mode: INPUT_PULLUP
+    id: 'button_up'
+    internal: true
+    filters:
+      invert:
+    on_press:
+        then:
+        - switch.turn_off: shade_s2
+        - switch.turn_on: shade_s1
+    on_release:
+        then:
+            - switch.turn_off: shade_s1
+#close
+  - platform: gpio
+    pin: 
+        number: D7
+        mode: INPUT_PULLUP
+    id: 'button_down'
+    internal: true
+    filters:
+      invert:
+    on_press:
+        then:
+        - switch.turn_off: shade_s1
+        - switch.turn_on: shade_s2
+    on_release:
+        then:
+            - switch.turn_off: shade_s2
+            
+#limit up
+  - platform: gpio
+    pin: D4
+    name: 'limit_up'
+    internal: true
+    filters:
+      invert:
+    on_press:
+     then:
+       - switch.turn_off: shade_s1
+
+#limit down
+#limit up
+  - platform: gpio
+    pin: D3
+    name: 'limit_down'
+    internal: true
+    filters:
+      invert:
+    on_press:
+     then:
+       - switch.turn_off: shade_s2
+
+cover:
+  - platform: template
+    name: "Kitchen Window Full"
+    id: kitchen_window
+    optimistic: true
+    open_action:
+      - switch.turn_off: shade_s2
+      - switch.turn_on: shade_s1
+      - delay: 99s
+      - switch.turn_off: shade_s1
+    close_action:
+      - switch.turn_off: shade_s1
+      - switch.turn_on: shade_s2
+      - delay: 99s
+      - switch.turn_off: shade_s2
+    stop_action:
+      - switch.turn_off: shade_s1
+      - switch.turn_off: shade_s2
+      
+  - platform: template
+    name: "Kitchen Window Control"
+    id: kitchen_control
+    assumed_state: true
+
+    open_action:
+      - switch.turn_off: shade_s2
+      - switch.turn_on: shade_s1
+    close_action:
+      - switch.turn_off: shade_s1
+      - switch.turn_on: shade_s2
+    stop_action:
+      - switch.turn_off: shade_s1
+      - switch.turn_off: shade_s2
