@@ -4,8 +4,8 @@ esphome:
   board: d1_mini
 
 wifi:
-  ssid: "WinternetIsComing.2"
-  password: "609redondo"
+  ssid: !secret wifi
+  password: !secret wifi_pass
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
