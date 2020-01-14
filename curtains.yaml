@@ -127,7 +127,6 @@ cover:
         else:
           - switch.turn_off: shade_s2
           - switch.turn_on: shade_s1
-
     close_action:
       if:
         condition:
