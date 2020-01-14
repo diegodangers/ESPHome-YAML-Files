@@ -165,8 +165,5 @@ cover:
     stop_action:
       - switch.turn_off: shade_s1
       - switch.turn_off: shade_s2
-<<<<<<< HEAD:curtains.yaml
 
 #test
-=======
->>>>>>> 2dda4f8b38e576df551f2be013ca844fc05d78c7:blinds.yaml
