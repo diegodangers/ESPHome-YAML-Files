@@ -7,11 +7,6 @@ wifi:
   ssid: !secret wifi
   password: !secret wifi_pass
 
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "Curtainmotor Test"
-    password: "1kN9zJ5bkByW"
-
 captive_portal:
 
 # Enable logging
@@ -46,58 +41,77 @@ binary_sensor:
 #open
   - platform: gpio
     pin: 
-        number: D6
-        mode: INPUT_PULLUP
+        number: D3
     id: 'button_up'
     internal: true
     filters:
       invert:
     on_press:
         then:
-        - switch.turn_off: shade_s2
-        - switch.turn_on: shade_s1
-    on_release:
-        then:
-            - switch.turn_off: shade_s1
+          if:
+            condition:
+              binary_sensor.is_on: limit_up
+            then:
+              - switch.turn_off: shade_s1
+            else:
+              - switch.turn_on: shade_s1
+
 #close
   - platform: gpio
     pin: 
-        number: D7
-        mode: INPUT_PULLUP
+        number: D4
     id: 'button_down'
     internal: true
     filters:
       invert:
     on_press:
         then:
-        - switch.turn_off: shade_s1
-        - switch.turn_on: shade_s2
+          if:
+            condition:
+              - binary_sensor.is_on: limit_down
+            then:
+              - switch.turn_off: shade_s2
+            else:
+              - switch.turn_on: shade_s2
+
     on_release:
         then:
             - switch.turn_off: shade_s2
-            
+
 #limit up
   - platform: gpio
-    pin: D4
+    pin: 
+      number: D7
+      mode: INPUT_PULLUP
     name: 'limit_up'
+    id: 'limit_up'
     internal: true
     filters:
       invert:
     on_press:
      then:
        - switch.turn_off: shade_s1
+       - cover.template.publish:
+          id: kitchen_window
+          state: OPEN
+
 
 #limit down
-#limit up
   - platform: gpio
-    pin: D3
+    pin: 
+      number: D6
+      mode: INPUT_PULLUP
     name: 'limit_down'
+    id: 'limit_down'
     internal: true
     filters:
       invert:
     on_press:
      then:
        - switch.turn_off: shade_s2
+       - cover.template.publish:
+          id: kitchen_window
+          state: CLOSED
 
 cover:
   - platform: template
@@ -105,15 +119,24 @@ cover:
     id: kitchen_window
     optimistic: true
     open_action:
-      - switch.turn_off: shade_s2
-      - switch.turn_on: shade_s1
-      - delay: 99s
-      - switch.turn_off: shade_s1
+      if:
+        condition:
+          - binary_sensor.is_on: limit_up
+        then:
+          - switch.turn_off: shade_s1
+        else:
+          - switch.turn_off: shade_s2
+          - switch.turn_on: shade_s1
+
     close_action:
-      - switch.turn_off: shade_s1
-      - switch.turn_on: shade_s2
-      - delay: 99s
-      - switch.turn_off: shade_s2
+      if:
+        condition:
+          - binary_sensor.is_on: limit_down
+        then:
+          - switch.turn_off: shade_s2
+        else:
+          - switch.turn_off: shade_s1
+          - switch.turn_on: shade_s2
     stop_action:
       - switch.turn_off: shade_s1
       - switch.turn_off: shade_s2
@@ -122,7 +145,6 @@ cover:
     name: "Kitchen Window Control"
     id: kitchen_control
     assumed_state: true
-
     open_action:
       - switch.turn_off: shade_s2
       - switch.turn_on: shade_s1
