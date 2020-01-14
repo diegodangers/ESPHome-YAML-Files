@@ -165,5 +165,3 @@ cover:
     stop_action:
       - switch.turn_off: shade_s1
       - switch.turn_off: shade_s2
-
-#test
