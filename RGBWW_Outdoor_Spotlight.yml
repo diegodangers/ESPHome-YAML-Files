@@ -1,0 +1,56 @@
+esphome:
+  name: outdoor_spotlight_1
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Outdoor Spotlight 1"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+light:
+  - platform: rgbww
+    name: "Outdoor Spotlight 1"
+    red: pwn_red
+    green: pwn_green
+    blue: pwn_blue
+    cold_white: pwn_cold_white
+    warm_white: pwn_warm_white
+    cold_white_color_temperature: 6536 K
+    warm_white_color_temperature: 2000 K
+
+
+output:
+  - platform: esp8266_pwm
+    pin: GPIO4
+    id: pwn_red
+
+  - platform: esp8266_pwm
+    pin: GPIO12
+    id: pwn_green
+    
+  - platform: esp8266_pwm
+    pin: GPIO14
+    id: pwn_blue
+
+  - platform: esp8266_pwm
+    pin: GPIO5
+    id: pwn_cold_white
+
+  - platform: esp8266_pwm
+    pin: GPIO13
+    id: pwn_warm_white
