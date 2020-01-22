@@ -1,5 +1,5 @@
 esphome:
-  name: outdoor_spotlight_1
+  name: outdoor_spotlight
   platform: ESP8266
   board: esp01_1m
 
@@ -9,7 +9,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Outdoor Spotlight 1"
+    ssid: "Outdoor Spotlight"
     password: !secret wifi_pass
 
 captive_portal:
@@ -24,7 +24,7 @@ ota:
 
 light:
   - platform: rgbww
-    name: "Outdoor Spotlight 1"
+    name: "Outdoor Spotlight"
     red: pwn_red
     green: pwn_green
     blue: pwn_blue
