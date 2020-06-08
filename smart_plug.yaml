@@ -8,15 +8,12 @@ binary_sensor:
     on_press:
       - switch.toggle: relay
 
-  - platform: status
-    name: "Status"
 
 switch:
   - platform: gpio
     id: red_led
     pin:
       number: GPIO12
-      inverted: true
 
   - platform: gpio
     name: "Bathroom Dehumidifier"
