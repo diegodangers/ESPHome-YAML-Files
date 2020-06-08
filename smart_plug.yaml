@@ -20,11 +20,8 @@ switch:
     pin: GPIO5
     id: relay
 
-    # Turn off red LED to show blue when turned on
     on_turn_on:
       - switch.turn_off: red_led
 
-    # Turns on the red LED once the plug is turned off. Stock plug doesn't do this, to restore normal behavior remove the on_turn_on and on_turn_off
-    # blocks.
     on_turn_off:
       - switch.turn_on: red_led
