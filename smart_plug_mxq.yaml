@@ -3,7 +3,6 @@ binary_sensor:
     pin:
       number: 13
       mode: INPUT_PULLUP
-      inverted: true
     id: button
     on_press:
       - switch.toggle: relay
@@ -12,14 +11,15 @@ binary_sensor:
 switch:
   - platform: gpio
     id: red_led
-    pin:
-      number: GPIO12
+    inverted: true
+    pin: GPIO12
 
   - platform: gpio
     name: "Bathroom Dehumidifier"
     pin: GPIO5
+    inverted: true
     id: relay
-
+    
     on_turn_on:
       - switch.turn_off: red_led
 
