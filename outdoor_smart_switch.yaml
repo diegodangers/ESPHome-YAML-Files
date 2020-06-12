@@ -1,0 +1,71 @@
+esphome:
+  name: **change me**
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "**change me**"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: 13
+      mode: INPUT_PULLUP
+    id: button1
+    on_press:
+      - switch.toggle: relay1
+      
+  - platform: gpio
+    pin:
+      number: 04
+      mode: INPUT_PULLUP
+    id: button2
+    on_press:
+      - switch.toggle: relay2
+      
+switch:
+  - platform: gpio
+    id: led_1
+    inverted: true
+    pin:
+      number: 0
+
+  - platform: gpio
+    name: "**change me**"
+    pin: 12
+    id: relay1
+    on_turn_off:
+      - switch.turn_off: led_1
+    on_turn_on:
+      - switch.turn_on: led_1
+
+  - platform: gpio
+    id: led_2
+    inverted: true
+    pin:
+      number: 2
+
+  - platform: gpio
+    name: "**change me**"
+    pin: 15
+    id: relay2
+    on_turn_off:
+      - switch.turn_off: led_2
+    on_turn_on:
+      - switch.turn_on: led_2

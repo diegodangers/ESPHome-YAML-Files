@@ -1,7 +1,0 @@
-LED1i: gpio0
-LED2i: gpio2
-Button1: gpio13
-Button2: gpio4
-Relay1: gpio12
-Relay2: gpio15
-LedLink: gpio14
