@@ -1,5 +1,5 @@
 esphome:
-  name: dog_camera
+    name: ***change me***
   platform: ESP8266
   board: esp01_1m
 
@@ -9,7 +9,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Dog Camera Fallback"
+    ssid: "***change me*** Fallback"
     password: !secret wifi_pass
 
 captive_portal:
@@ -37,9 +37,9 @@ switch:
     id: led
     pin: GPIO02
     inverted: true
-
+    
   - platform: gpio
-    name: "Dog Camera"
+    name: "***change me***"
     pin: GPIO15
     id: relay
     
