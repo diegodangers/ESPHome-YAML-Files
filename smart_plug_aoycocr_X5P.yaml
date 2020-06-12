@@ -1,0 +1,50 @@
+esphome:
+  name: dog_camera
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Dog Camera Fallback"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: 13
+      mode: INPUT_PULLUP
+    id: button
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - platform: gpio
+    id: led
+    pin: GPIO02
+    inverted: true
+
+  - platform: gpio
+    name: "Dog Camera"
+    pin: GPIO15
+    id: relay
+    
+    on_turn_off:
+      - switch.turn_off: led
+
+    on_turn_on:
+      - switch.turn_on: led
