@@ -1,0 +1,31 @@
+esphome:
+  name: **change me**
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "**change me**"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+dallas:
+  - pin: D2
+  
+sensor:
+  - platform: dallas
+    index : 0
+    name: "**change me** Temperature"
+    id: **change me**_temp

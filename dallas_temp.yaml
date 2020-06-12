@@ -1,8 +1,0 @@
-dallas:
-  - pin: D2
-
-sensor:
-  - platform: dallas
-    index : 0
-    name: "Kitchen Temperature"
-    id: kitchen_temp
