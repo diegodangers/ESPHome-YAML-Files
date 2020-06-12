@@ -1,0 +1,42 @@
+esphome:
+  name: **change me**
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "**change me**"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+i2c:
+  sda: D6
+  scl: D7
+  scan: true
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "**change me** Temperature"
+      oversampling: 16x
+    pressure:
+      name: "**change me** Pressure"
+      oversampling: 16x
+    humidity:
+      name: "**change me** Humidity"
+      oversampling: 16x
+    address: 0x76
+    update_interval: 60s
