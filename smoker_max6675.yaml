@@ -1,0 +1,38 @@
+esphome:
+  name: smoker
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Smoker Fallback Hotspot"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+spi:
+  miso_pin: D0
+  clk_pin: D1
+
+sensor:
+  - platform: max6675
+    name: "Smoker"
+    cs_pin: D2
+    update_interval: 60s
+    
+  - platform: max6675
+    name: "Probe"
+    cs_pin: D7
+    update_interval: 60s
