@@ -1,0 +1,50 @@
+esphome:
+  name: keezer_temp
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Keezer Temp Fallback Hotspot"
+    password: !secret wifi_pass
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    id: button
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - platform: gpio
+    id: led
+    pin: GPIO13
+    inverted: true
+    
+  - platform: gpio
+    name: "Keezer Control"
+    pin: GPIO12
+    id: relay
+
+    on_turn_off:
+      - switch.turn_off: led
+
+    on_turn_on:
+      - switch.turn_on: led
