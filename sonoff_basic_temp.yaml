@@ -1,5 +1,5 @@
 esphome:
-  name: keezer_temp
+  name: **change me**
   platform: ESP8266
   board: esp01_1m
 
@@ -9,7 +9,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Keezer Temp Fallback Hotspot"
+    ssid: "**change me** Fallback Hotspot"
     password: !secret wifi_pass
 
 captive_portal:
@@ -21,6 +21,17 @@ logger:
 api:
 
 ota:
+
+# Example configuration entry
+dallas:
+  - pin: GPIO03
+
+# Individual sensors
+sensor:
+  - platform: dallas
+    index : 0
+    name: "**change me**"
+    id: **change me**_temp
 
 binary_sensor:
   - platform: gpio
@@ -39,7 +50,7 @@ switch:
     inverted: true
     
   - platform: gpio
-    name: "Keezer Control"
+    name: "**change me** Control"
     pin: GPIO12
     id: relay
 
