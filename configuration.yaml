@@ -1,0 +1,16 @@
+# KEEZER CONTROL
+climate:
+  - platform: generic_thermostat
+    name: Keezer
+    heater: switch.keezer_control
+    target_sensor: sensor.keezer_temperature
+    min_temp: 30
+    max_temp: 46
+    ac_mode: true
+    target_temp: 38
+    cold_tolerance: 0.5
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 60
+    initial_hvac_mode: "cool"
+    precision: 0.5
