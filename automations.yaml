@@ -15,6 +15,10 @@
     domain: switch
     entity_id: switch.string_lights
     type: turn_on
+  - delay: 00:00:01
+  - data: {}
+    entity_id: automation.string_lights_off
+    service: automation.turn_on
 - id: '1592201540596'
   alias: string lights off - back door close
   description: ''
