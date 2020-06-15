@@ -58,3 +58,15 @@
   action:
   - entity_id: automation.string_lights_off
     service: automation.turn_on
+- id: '1592203274456'
+  alias: turn lights off when sunrises
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - device_id: 66d43b2197cc41f88f88a8a3ed3f261a
+    domain: switch
+    entity_id: switch.string_lights
+    type: turn_off
