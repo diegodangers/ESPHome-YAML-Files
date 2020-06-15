@@ -33,3 +33,28 @@
     entity_id: switch.string_lights
     type: turn_off
 - id: '1592202183110'
+  alias: turn off string light off automation
+  description: ''
+  trigger:
+  - device_id: 66d43b2197cc41f88f88a8a3ed3f261a
+    domain: switch
+    entity_id: switch.string_lights
+    platform: device
+    type: turned_on
+  condition: []
+  action:
+  - entity_id: automation.string_lights_off
+    service: automation.turn_off
+- id: '1592202507252'
+  alias: turn on string light automation
+  description: ''
+  trigger:
+  - device_id: 66d43b2197cc41f88f88a8a3ed3f261a
+    domain: switch
+    entity_id: switch.string_lights
+    platform: device
+    type: turned_off
+  condition: []
+  action:
+  - entity_id: automation.string_lights_off
+    service: automation.turn_on
